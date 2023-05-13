@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+// For exceeding requirements i choose to Save other information in the journal entry.
+// In this case i add a Location Entry, and i allowing user to manually input their location.
+
 class Entry
 {
     public string Prompt { get; set; }
     public string Response { get; set; }
     public string Date { get; set; }
+    public string Location { get; set; }
 }
 
 class Journal
@@ -26,6 +30,10 @@ class Journal
             Response = response,
             Date = date
         };
+
+        Console.Write("Enter your location: ");
+        entry.Location = Console.ReadLine();
+
         entries.Add(entry);
     }
 
@@ -36,6 +44,7 @@ class Journal
             Console.WriteLine($"Date: {entry.Date}");
             Console.WriteLine($"Prompt: {entry.Prompt}");
             Console.WriteLine($"Response: {entry.Response}");
+            Console.WriteLine($"Location: {entry.Location}");
             Console.WriteLine();
         }
     }
@@ -46,7 +55,7 @@ class Journal
         {
             foreach (Entry entry in entries)
             {
-                writer.WriteLine($"{entry.Date}|{entry.Prompt}|{entry.Response}");
+                writer.WriteLine($"{entry.Date}|{entry.Location}|{entry.Prompt}|{entry.Response}");
             }
         }
     }
@@ -61,13 +70,14 @@ class Journal
             while ((line = reader.ReadLine()) != null)
             {
                 string[] parts = line.Split('|');
-                if (parts.Length == 3)
+                if (parts.Length == 4)
                 {
                     Entry entry = new Entry
                     {
                         Date = parts[0],
-                        Prompt = parts[1],
-                        Response = parts[2]
+                        Location = parts[1],
+                        Prompt = parts[2],
+                        Response = parts[3]
                     };
                     entries.Add(entry);
                 }
