@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace ScriptureHideAndSeek
+namespace ScriptureHide
 {
     class Reference
     {
@@ -85,7 +85,7 @@ namespace ScriptureHideAndSeek
 
         public bool IsCompletelyHidden()
         {
-            return words.All(word => word.Hidden);
+            return words.All(word => word.Hidden) && words.Count > 1;
         }
 
         public string GetRenderedText()
@@ -133,4 +133,3 @@ namespace ScriptureHideAndSeek
         }
     }
 }
-//KEVIN
