@@ -6,49 +6,81 @@ namespace ActivityProgram
 {
     class Program
     {
+        private static Dictionary<string, int> activityLog = new Dictionary<string, int>();
+
         static void Main(string[] args)
         {
-            bool exit = false;
+            Console.WriteLine("Welcome to Activity Program!");
 
-            while (!exit)
+            while (true)
             {
                 DisplayMenu();
-                int choice = GetMenuChoice();
+                string choice = Console.ReadLine();
 
-                switch (choice)
+                if (choice == "1")
                 {
-                    case 1:
-                        PerformBreathingActivity();
-                        break;
-                    case 2:
-                        PerformReflectionActivity();
-                        break;
-                    case 3:
-                        PerformListingActivity();
-                        break;
-                    case 4:
-                        exit = true;
-                        Console.WriteLine("Exiting program...");
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice. Please try again.");
-                        break;
+                    PerformReflectionActivity();
+                    UpdateActivityLog("Reflection");
                 }
-
+                else if (choice == "2")
+                {
+                    PerformBreathingActivity();
+                    UpdateActivityLog("Breathing");
+                }
+                else if (choice == "3")
+                {
+                    PerformListingActivity();
+                    UpdateActivityLog("Listing");
+                }
+                else if (choice == "4")
+                {
+                    ShowActivityLog();
+                }
+                else if (choice == "5")
+                {
+                    Console.WriteLine("Exit!");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                }
                 Console.WriteLine();
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 Console.Clear();
             }
         }
+        //For exceeding requirements i put a log tracker of how many times activities were performed
+        static void UpdateActivityLog(string activityName)
+        {
+            if (activityLog.ContainsKey(activityName))
+            {
+                activityLog[activityName]++;
+            }
+            else
+            {
+                activityLog.Add(activityName, 1);
+            }
+        }
+         static void ShowActivityLog()
+        {
+            Console.WriteLine("Activity Log:");
+
+            foreach (var entry in activityLog)
+            {
+                Console.WriteLine($"{entry.Key}: {entry.Value} times");
+            }
+        }
 
         static void DisplayMenu()
         {
             Console.WriteLine("========== Activity Program ==========");
-            Console.WriteLine("1. Breathing Activity");
-            Console.WriteLine("2. Reflection Activity");
+            Console.WriteLine("1. Reflection Activity");
+            Console.WriteLine("2. Breathing Activity");
             Console.WriteLine("3. Listing Activity");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Show Activity Log");
+            Console.WriteLine("5. Exit");
             Console.WriteLine("======================================");
         }
 
@@ -138,7 +170,7 @@ namespace ActivityProgram
                 break;
 
             Console.WriteLine(question);
-            PauseSeconds(5);
+            PauseSeconds(3);
             Console.WriteLine();
         }
     }
