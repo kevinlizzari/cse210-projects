@@ -1,5 +1,0 @@
-45
-Checklist,going to church,10,False,3,4,500
-Eternal,eat,10,False
-Eternal,sleep,10,False
-Simple,play,5,True,True
